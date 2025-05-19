@@ -23,11 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
         // Build participants list HTML
         let participantsHTML = "";
         if (details.participants.length > 0) {
-          participantsHTML = `
-            <ul class="participants-list">
-              ${details.participants.map(email => `<li>${email}</li>`).join("")}
-            </ul>
-          `;
+          const participantsList = document.createElement("ul");
+          participantsList.className = "participants-list";
+          details.participants.forEach(email => {
+            const listItem = document.createElement("li");
+            listItem.textContent = email;
+            participantsList.appendChild(listItem);
+          });
+          participantsHTML = participantsList.outerHTML;
         } else {
           participantsHTML = `<p class="no-participants">No participants yet.</p>`;
         }
